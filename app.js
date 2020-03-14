@@ -4,6 +4,9 @@ const port = process.env.PORT || 8000;
 const mongoose = require('mongoose');
 const app = express();
 const userRoutes = require('./routes/userRoutes');
+const morgan  = require('morgan')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
 
 mongoose
@@ -12,6 +15,10 @@ mongoose
         useCreateIndex: true
     })
     .then(() => console.log("DB Connected"));
+
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use("/api",userRoutes);
 
